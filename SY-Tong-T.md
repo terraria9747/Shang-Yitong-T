@@ -16,4 +16,13 @@
 	hospital_bottom
 	hospital_top
 
+# 三.配置路由
+## 1.安装插件 vue-router
+## 2.创建路由组件
+## 3.配置路由 route
+	1.路由懒加载
+	2.路由重定向
+	3.hash路由模式
+	4.路由跳转滚动条最顶部
+
 
