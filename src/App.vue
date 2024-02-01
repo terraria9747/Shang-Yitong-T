@@ -59,7 +59,7 @@
 
 .content {
   padding-top: 70px;
-  height: 1000px;
+  padding-bottom: 100px;
   width: 1200px;
   margin: 0 auto;
 }

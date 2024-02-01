@@ -14,6 +14,14 @@ import HospitalBottom from "@/components/hospital_bottom/index.vue"
 // 导入路由
 import router from './router'
 
+// 导入element-UI插件
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
+// element-UI中文国际化的配置
+// 忽略ts校验
+//@ts-ignore
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
+
 // 利用createApp方法创建应用实例, 将应用实例挂载到挂载点上
 const app = createApp(App)
 
@@ -23,6 +31,11 @@ app.use(router)
 // 全局注册组件
 app.component("HospitalTop", HospitalTop)
 app.component("HospitalBottom", HospitalBottom)
+
+// 安装element-UI插件
+app.use(ElementPlus, {
+  locale: zhCn, // 中文
+})
 
 // 挂载
 app.mount('#app')
