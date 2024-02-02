@@ -27,6 +27,7 @@
             :hospitalInfo="item"
             class="card"
             shadow="hover"
+            @click="goDetail"
           />
           <!-- <Card
             v-for="item in 10"
@@ -34,7 +35,6 @@
             :hospitalInfo="item"
             class="card"
             shadow="hover"
-            @click="goDetail"
           /> -->
         </div>
 
@@ -52,7 +52,9 @@
           @size-change="changeSize"
         />
       </el-col>
-      <el-col :span="5.5">2</el-col>
+      <el-col :span="5">
+        <Tip />
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -83,6 +85,10 @@ import Region from "@/pages/home/region/index.vue";
 // 卡片
 //@ts-ignore
 import Card from "@/pages/home/card/index.vue";
+
+// 右侧新闻组件
+//@ts-ignore
+import Tip from "@/pages/home/tip/index.vue";
 
 // element 弹框组件
 //@ts-ignore
@@ -174,7 +180,7 @@ const goDetail = () => {
 
 <style scoped lang="scss">
 .el-col {
-  margin-right: 10px;
+  margin-right: 25px;
   h1 {
     font-weight: 900;
     margin-bottom: 30px;

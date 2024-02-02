@@ -119,4 +119,8 @@ let $emit = defineEmits(["getLevelData"]);
 - 4.点击卡片进行路由跳转
 - 5.点击logo跳转到主页
 
+# 九.首页右侧静态部分
+- 常见科室
+- 平台公告
+- 听诊公告
 
