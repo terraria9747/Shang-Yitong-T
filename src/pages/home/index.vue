@@ -19,14 +19,7 @@
         <Region />
 
         <!-- 医院展示--卡片 -->
-        <div class="hospitalCard">
-          <!-- <Card
-            v-for="item in 10"
-            :key="item"
-            :hospitalInfo="item"
-            class="card"
-            shadow="hover"
-          /> -->
+        <div class="hospitalCard" v-if="hospitalInfo.length > 0">
           <Card
             v-for="item in hospitalInfo"
             :key="item"
@@ -34,7 +27,16 @@
             class="card"
             shadow="hover"
           />
+          <!-- <Card
+            v-for="item in 10"
+            :key="item"
+            :hospitalInfo="item"
+            class="card"
+            shadow="hover"
+          /> -->
         </div>
+
+        <el-empty v-else description="没有医院信息" />
 
         <!-- 分页器 -->
         <el-pagination
@@ -69,9 +71,11 @@ import Carousel from "@/pages/home/carousel/index.vue";
 import Search from "@/pages/home/search/index.vue";
 
 // 等级组件
+//@ts-ignore
 import Level from "@/pages/home/level/index.vue";
 
 // 地区组件
+//@ts-ignore
 import Region from "@/pages/home/region/index.vue";
 
 // 卡片

@@ -22,7 +22,7 @@ request.interceptors.response.use((response) => {
 	return response.data
 }, (error) => {
 	// 处理错误信息
-	// console.log("错误信息", error);
+	console.log("错误信息", error);
 	const status = error.response.status
 	switch (status) {
 		case 404:

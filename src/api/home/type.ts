@@ -1,12 +1,14 @@
 // 这里对首页 获取的医院数据类型进行限制
 
-// 定义一个接口, 用来限制ts类型
+// 定义一个接口, 用来限制ts类型 -- 公共数据
 export interface ResponseData {
 	"code": number,
 	"message": string,
 	"ok": boolean
 }
 
+// ===================================
+// 获取医院数据
 // 定义一个接口, 用来限制data中content数据
 export interface DataContent {
 	"id": string,
@@ -71,4 +73,27 @@ export interface HospitalResponseData extends ResponseData {
 		"number": number,
 		"empty": boolean
 	},
+}
+
+// ===================================
+// 获取医院等级和地区数据
+export interface LevelAndRegion {
+  "id": number,
+  "createTime": string,
+  "updateTime": string,
+  "isDeleted": number,
+  "param": {},
+  "parentId": number,
+  "name": string,
+  "value": string,
+  "dictCode": string,
+  "hasChildren": boolean
+}
+
+// 医院等级和地区数据列表
+export type LevelAndRegionArr = LevelAndRegion[]
+
+// 医院等级和地区数据所有数据
+export interface LevelAndRegionResponseData extends ResponseData {
+	data: LevelAndRegionArr
 }
