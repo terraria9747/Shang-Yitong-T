@@ -21,5 +21,11 @@
 .bottom {
   position: fixed;
   bottom: 0;
+  .left {
+    span {
+      font-size: 14px;
+      margin-right: 20px;
+    }
+  }
 }
 </style>

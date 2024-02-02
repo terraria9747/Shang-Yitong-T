@@ -1,7 +1,8 @@
 <template>
   <el-card class="box-card">
     <div class="left">
-      <div class="hospital_name">济宁医学院附属医院</div>
+      <div class="hospital_name">{{ hospitalInfo?.hosname }}</div>
+      <!-- <div class="hospital_name">济宁医学院附属医院</div> -->
       <div class="tip">
         <span>
           <svg
@@ -20,7 +21,8 @@
               p-id="7235"
             ></path>
           </svg>
-          <p>二级乙等</p>
+          <p>{{ hospitalInfo.param?.hostypeString }}</p>
+          <!-- <p>三级甲等</p> -->
         </span>
         <span>
           <svg
@@ -39,17 +41,22 @@
               p-id="4450"
             ></path>
           </svg>
-          <p>每天07:00放号</p>
+          <p>每天{{ hospitalInfo.bookingRule?.releaseTime }}放号</p>
+          <!-- <p>每天8:00放号</p> -->
         </span>
       </div>
     </div>
     <div class="right">
-      <img src="@/assets/images/logo.png" alt="" />
+      <img :src="`data:image/jpeg;base64,${hospitalInfo.logoData}`" alt="" />
+      <!-- <img src="@/assets/images/logo.png" alt="" /> -->
     </div>
   </el-card>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+//@ts-ignore
+defineProps(["hospitalInfo"]);
+</script>
 
 <style scoped lang="scss">
 .box-card {

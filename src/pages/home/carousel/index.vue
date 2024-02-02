@@ -8,7 +8,7 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup name></script>
 
 <style lang="scss" scoped>
 .carousel {
