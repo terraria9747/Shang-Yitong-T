@@ -2,7 +2,7 @@
   <div class="level">
     <div class="left">等级:</div>
     <ul class="right">
-      <li :class="levelFlag === '' ? 'active' : ''" @click="levelFlag = ''">
+      <li :class="levelFlag === '' ? 'active' : ''" @click="changeLevel('')">
         全部
       </li>
       <li
@@ -19,7 +19,7 @@
 
 <script lang="ts" setup>
 // @ts-ignore
-import { onMounted, ref } from "vue";
+import { onMounted, ref, defineEmits } from "vue";
 // @ts-ignore
 import { reqHospitalAndLevel } from "@/api/home/index.ts";
 import {
@@ -49,7 +49,11 @@ const getLevel = async () => {
 // 选择等级 高亮
 const changeLevel = (value: string) => {
   levelFlag.value = value;
+  console.log("等级", value);
+  $emit("getLevelData", value);
 };
+
+let $emit = defineEmits(["getLevelData"]);
 </script>
 
 <style lang="scss" scoped>

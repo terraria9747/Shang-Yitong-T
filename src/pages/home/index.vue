@@ -13,16 +13,17 @@
         <h1>医院</h1>
 
         <!-- 等级区域 -->
-        <Level />
+        <!-- @getLevelData 自定义事件, 等待子组件触发 -->
+        <Level @getLevelData="getLevelData" />
 
         <!-- 地区部分 -->
-        <Region />
+        <Region @getRegionData="getRegionData" />
 
         <!-- 医院展示--卡片 -->
         <div class="hospitalCard" v-if="hospitalInfo.length > 0">
           <Card
             v-for="item in hospitalInfo"
-            :key="item"
+            :key="item.id"
             :hospitalInfo="item"
             class="card"
             shadow="hover"
@@ -100,6 +101,11 @@ let total = ref<number>(20);
 // 医院的全部数据
 let hospitalInfo = ref<Content>([]);
 
+// 获取子组件传递的等级数据
+let level = ref<string>("");
+// 获取子组件传递的地区数据
+let region = ref<string>("");
+
 // 挂载完成 发起请求
 onMounted(() => {
   getHospitalInfo();
@@ -109,8 +115,11 @@ onMounted(() => {
 const getHospitalInfo = async () => {
   let result: HospitalResponseData = await reqHospital(
     pageNo.value,
-    pageSize.value
+    pageSize.value,
+    level.value,
+    region.value
   );
+
   //@ts-ignore
   if (result.code === 200) {
     hospitalInfo.value = result.data.content;
@@ -132,6 +141,20 @@ const changePageNo = () => {
 const changeSize = () => {
   // 页面跳转到第一页
   pageNo.value = 1;
+  getHospitalInfo();
+};
+
+// 获取等级
+const getLevelData = (value: string) => {
+  // console.log("获取等级", value);
+  level.value = value;
+  getHospitalInfo();
+};
+
+// 获取地区
+const getRegionData = (value: string) => {
+  // console.log("获取地区", value);
+  region.value = value;
   getHospitalInfo();
 };
 </script>

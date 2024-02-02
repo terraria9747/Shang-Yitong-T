@@ -2,7 +2,7 @@
   <div class="region">
     <div class="left">地区:</div>
     <ul class="right">
-      <li :class="regionFlag === '' ? 'active' : ''" @click="regionFlag = ''">
+      <li :class="regionFlag === '' ? 'active' : ''" @click="changeRegion('')">
         全部
       </li>
       <li
@@ -19,7 +19,7 @@
 
 <script lang="ts" setup>
 // @ts-ignore
-import { onMounted, ref } from "vue";
+import { onMounted, ref, defineEmits } from "vue";
 // @ts-ignore
 import { reqHospitalAndLevel } from "@/api/home/index.ts";
 import {
@@ -49,7 +49,11 @@ const getRegion = async () => {
 // 点击地区高亮显示
 const changeRegion = (value: string) => {
   regionFlag.value = value;
+  console.log("地区", value);
+  $emit("getRegionData", value);
 };
+
+let $emit = defineEmits(["getRegionData"]);
 </script>
 
 <style lang="scss" scoped>
