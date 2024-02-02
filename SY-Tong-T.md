@@ -124,3 +124,13 @@ let $emit = defineEmits(["getLevelData"]);
 - 平台公告
 - 听诊公告
 
+# 十.医院详情菜单与子路由
+- 1.左侧导航 menu
+- 2.右侧路由 content
+- 3.配置hospital的二级路由 - 路由懒加载
+- 4.获取路由信息
+
+```ts
+$route.path
+```
+

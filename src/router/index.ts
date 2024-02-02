@@ -1,4 +1,4 @@
-import {createRouter, createWebHistory, } from "vue-router"
+import { createRouter, createWebHistory, } from "vue-router"
 
 export default createRouter({
 	// 路由模式 hash模式
@@ -11,7 +11,33 @@ export default createRouter({
 		},
 		{
 			path: "/hospital",
-			component: () => import("@/pages/hospital/index.vue")
+			component: () => import("@/pages/hospital/index.vue"),
+			children: [
+				{
+					path: "booking",
+					component:() => import("@/pages/hospital/booking/index.vue"),
+				},
+				{
+					path: "close",
+					component:() => import("@/pages/hospital/close/index.vue"),
+				},
+				{
+					path: "detail",
+					component:() => import("@/pages/hospital/detail/index.vue"),
+				},
+				{
+					path: "notice",
+					component:() => import("@/pages/hospital/notice/index.vue"),
+				},
+				{
+					path: "search",
+					component:() => import("@/pages/hospital/search/index.vue"),
+				},
+				{
+					path: '',
+					redirect: '/hospital/booking'
+				}
+			]
 		},
 		{
 			path: "/",
