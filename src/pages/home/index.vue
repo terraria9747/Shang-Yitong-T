@@ -82,16 +82,19 @@ import Card from "@/pages/home/card/index.vue";
 //@ts-ignore
 import { ElMessage } from "element-plus";
 
+//@ts-ignore
+import type { HospitalResponseData, Content } from "@/api/home/type";
+
 // 分页器数据
 // 默认选择第一页
 let pageNo = ref<number>(1);
 // 一页显示多少条数据
 let pageSize = ref<number>(10);
 // 数据条数
-let total = ref(20);
+let total = ref<number>(20);
 
 // 医院的全部数据
-let hospitalInfo = ref([]);
+let hospitalInfo = ref<Content>([]);
 
 // 挂载完成 发起请求
 onMounted(() => {
@@ -100,11 +103,14 @@ onMounted(() => {
 
 // 发起请求获取数据
 const getHospitalInfo = async () => {
-  const result = await reqHospital(pageNo.value, pageSize.value);
+  let result: HospitalResponseData = await reqHospital(
+    pageNo.value,
+    pageSize.value
+  );
   //@ts-ignore
   if (result.code === 200) {
     hospitalInfo.value = result.data.content;
-    total = result.data.totalElements;
+    total.value = result.data.totalElements;
   } else {
     ElMessage({
       message: "请求超时, 请稍等后重试",
