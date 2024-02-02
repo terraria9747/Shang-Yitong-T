@@ -1,7 +1,7 @@
 <template>
   <el-card class="box-card">
     <div class="left">
-      <div class="hospital_name">{{ hospitalInfo.hosname }}</div>
+      <div class="hospital_name">{{ hospitalInfo?.hosname }}</div>
       <!-- <div class="hospital_name">济宁医学院附属医院</div> -->
       <div class="tip">
         <span>
@@ -21,8 +21,8 @@
               p-id="7235"
             ></path>
           </svg>
-          <!-- <p>三级甲等</p> -->
           <p>{{ hospitalInfo.param.hostypeString }}</p>
+          <!-- <p>三级甲等</p> -->
         </span>
         <span>
           <svg

@@ -88,15 +88,35 @@
 - 子组件点击某一等级或者某一地区时, 把对应的参数传给父组件
   - 自定义事件
   - 父组件给子组件传递一个方法, 当子组件触发该方法时, 把该数据传递给父组件
+```ts
+// 父组件
+<Level @getLevelData="getLevelData" />
+...
+// 获取等级
+const getLevelData = (value: string) => {
+  // console.log("获取等级", value);
+  level.value = value;
+  getHospitalInfo();
+};
+
+// 子组件
+const changeLevel = (value: string) => {
+  levelFlag.value = value;
+  console.log("等级", value);
+  $emit("getLevelData", value);
+};
+
+let $emit = defineEmits(["getLevelData"]);
+```
 - 父组件拿到参数时, 重新发请求, 获取指定等级或地区的数据
 
 ## 6.没有医院数据 展示空信息 
 
-# 八.根基关键词搜索医院
-- 收集搜索的关键字
-- 利用关键字发送联想建议的请求
-- 选中建议项进行路由跳转
-- 点击卡片进行路由跳转
-- 点击logo跳转到主页
+# 八.关键词搜索医院
+- 1.收集搜索的关键字
+- 2.利用关键字发送联想建议的请求
+- 3.选中建议项进行路由跳转
+- 4.点击卡片进行路由跳转
+- 5.点击logo跳转到主页
 
 

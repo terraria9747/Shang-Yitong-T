@@ -97,3 +97,9 @@ export type LevelAndRegionArr = LevelAndRegion[]
 export interface LevelAndRegionResponseData extends ResponseData {
 	data: LevelAndRegionArr
 }
+
+// ===================================
+// 医院搜索建议
+export interface SearchResponseData extends ResponseData {
+	data: Content
+}

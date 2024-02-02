@@ -49,7 +49,7 @@ const getLevel = async () => {
 // 选择等级 高亮
 const changeLevel = (value: string) => {
   levelFlag.value = value;
-  console.log("等级", value);
+  // console.log("等级", value);
   $emit("getLevelData", value);
 };
 

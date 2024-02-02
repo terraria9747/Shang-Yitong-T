@@ -49,7 +49,7 @@ const getRegion = async () => {
 // 点击地区高亮显示
 const changeRegion = (value: string) => {
   regionFlag.value = value;
-  console.log("地区", value);
+  // console.log("地区", value);
   $emit("getRegionData", value);
 };
 

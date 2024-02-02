@@ -16,8 +16,9 @@
 <script setup lang="ts"></script>
 
 <style lang="scss" scoped>
-.bottom {
-  position: fixed;
-  top: 0;
+.top {
+  .left {
+    cursor: pointer;
+  }
 }
 </style>

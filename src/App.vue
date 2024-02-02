@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- 顶部区域 -->
-    <HospitalTop />
+    <HospitalTop @click="goHome" />
     <!-- 路由区域 -->
     <div class="content">
       <router-view></router-view>
@@ -11,7 +11,18 @@
   </div>
 </template>
 
-<script setup lang="ts" name="app"></script>
+<script setup lang="ts" name="app">
+// @ts-ignore
+import { useRouter } from "vue-router";
+
+// 创建路由器
+const $router = useRouter();
+
+// 返回首页
+const goHome = () => {
+  $router.push("/home");
+};
+</script>
 
 <style lang="scss">
 .top,

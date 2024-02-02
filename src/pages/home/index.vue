@@ -34,6 +34,7 @@
             :hospitalInfo="item"
             class="card"
             shadow="hover"
+            @click="goDetail"
           /> -->
         </div>
 
@@ -89,6 +90,13 @@ import { ElMessage } from "element-plus";
 
 //@ts-ignore
 import type { HospitalResponseData, Content } from "@/api/home/type";
+
+// 导入路由器
+//@ts-ignore
+import { useRouter } from "vue-router";
+
+// 创建路由器
+let $router = useRouter();
 
 // 分页器数据
 // 默认选择第一页
@@ -156,6 +164,11 @@ const getRegionData = (value: string) => {
   // console.log("获取地区", value);
   region.value = value;
   getHospitalInfo();
+};
+
+// 路由跳转 -- 跳转到详情页
+const goDetail = () => {
+  $router.push("/hospital");
 };
 </script>
 
