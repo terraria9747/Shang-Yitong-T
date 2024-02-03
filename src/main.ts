@@ -22,6 +22,9 @@ import 'element-plus/dist/index.css'
 //@ts-ignore
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 
+// 导入pinia
+import createPinia from "@/store/index"
+
 // 利用createApp方法创建应用实例, 将应用实例挂载到挂载点上
 const app = createApp(App)
 
@@ -36,6 +39,9 @@ app.component("HospitalBottom", HospitalBottom)
 app.use(ElementPlus, {
   locale: zhCn, // 中文
 })
+
+// 安装pinia仓库
+app.use(createPinia)
 
 // 挂载
 app.mount('#app')

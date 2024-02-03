@@ -67,7 +67,15 @@ import {
   // @ts-ignore
 } from "@element-plus/icons-vue";
 
+// @ts-ignore
+import { onMounted } from "vue";
+
+// 导入pinia存储医院数据的仓库
+// @ts-ignore
+import useDeatilStore from "@/store/modules/hospitalDeatil";
+
 // 导入路由器
+// @ts-ignore
 import { useRouter, useRoute } from "vue-router";
 let $router = useRouter();
 
@@ -75,11 +83,19 @@ let $router = useRouter();
 let $route = useRoute();
 // console.log($route.path);
 
+// 创建仓库对象
+let detailStore = useDeatilStore();
+
 // 路由跳转
 const changePage = (path: string) => {
   // 跳转到对应的二级路由
   $router.push({ path });
 };
+
+onMounted(() => {
+  // console.log("获取医院数据");
+  detailStore.getHospital("Beijin");
+});
 </script>
 
 <style scoped lang="scss">

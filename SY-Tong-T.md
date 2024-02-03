@@ -134,3 +134,22 @@ let $emit = defineEmits(["getLevelData"]);
 $route.path
 ```
 
+# 十一.Pinia仓库存储医院数据
+## 1.搜索和单击卡片时携带医院的query参数
+
+## 2.配置API接口
+
+## 3.ts对响应数据进行限制
+
+## 4.由于五个二级路由用的同一套数据, 所以用Pinia对数据进行统一管理
+- 1.创建store/index.ts文件
+- 2.在该文件中导入创建pinia的方法, 并向外暴露
+- 3.mian.ts中安装pinia仓库
+- 4.创建store/hospitalDetail.ts文件
+- 5.创建pinia仓库, useDetailStore, 并向外暴露
+- 6.详情页 获取仓库对象
+```
+let detailStore = useDetailStore()
+```
+- 7.组件挂载完毕后, 通知pinia仓库发请求并存储数据
+
