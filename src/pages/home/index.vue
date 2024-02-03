@@ -35,6 +35,7 @@
             :hospitalInfo="item"
             class="card"
             shadow="hover"
+            @click="goDetail"
           /> -->
         </div>
 
@@ -100,6 +101,10 @@ import type { HospitalResponseData, Content } from "@/api/home/type";
 // 导入路由器
 //@ts-ignore
 import { useRouter } from "vue-router";
+
+// nanoid模拟请求参数
+//@ts-ignore
+import { nanoid } from "nanoid/non-secure";
 
 // 创建路由器
 let $router = useRouter();
@@ -174,7 +179,8 @@ const getRegionData = (value: string) => {
 
 // 路由跳转 -- 跳转到详情页
 const goDetail = () => {
-  $router.push("/hospital");
+  // nanoid模拟请求参数
+  $router.push({ path: "/hospital/booking", query: { id: nanoid() } });
 };
 </script>
 

@@ -26,6 +26,10 @@ import { SearchResponseData } from "@/api/home/type.ts";
 // 路由跳转
 import { useRouter } from "vue-router";
 
+// nanoid模拟请求参数
+//@ts-ignore
+import { nanoid } from "nanoid/non-secure";
+
 // 创建一个路由器
 const $router = useRouter();
 
@@ -52,8 +56,8 @@ const querySearch = async (keyword: string, cb: any) => {
 
 // 去详情页
 const goDetail = () => {
-  $router.push("/hospital");
-  // 跳转时携带参数
+  // 跳转时携带参数 -- nanoid模拟请求参数
+  $router.push({ path: "/hospital/booking/", query: { id: nanoid() } });
 };
 </script>
 

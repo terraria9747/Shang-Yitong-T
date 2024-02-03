@@ -89,7 +89,9 @@ let detailStore = useDeatilStore();
 // 路由跳转
 const changePage = (path: string) => {
   // 跳转到对应的二级路由
-  $router.push({ path });
+  $router.push({ path, query: $route.query });
+  // 获取url路径中的query参数
+  // console.log($route.query);
 };
 
 onMounted(() => {
