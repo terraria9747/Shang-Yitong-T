@@ -53,6 +53,7 @@ const querySearch = async (keyword: string, cb: any) => {
 // 去详情页
 const goDetail = () => {
   $router.push("/hospital");
+  // 跳转时携带参数
 };
 </script>
 
