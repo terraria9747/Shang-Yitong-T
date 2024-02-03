@@ -16,22 +16,22 @@
               <span>预约挂号</span>
             </el-menu-item>
             <el-menu-item
-              index="/hospital/close"
-              @click="changePage('/hospital/close')"
+              index="/hospital/detail"
+              @click="changePage('/hospital/detail')"
             >
               <el-icon><Tickets /></el-icon>
               <span>医院详情</span>
             </el-menu-item>
             <el-menu-item
-              index="/hospital/detail"
-              @click="changePage('/hospital/detail')"
+              index="/hospital/notice"
+              @click="changePage('/hospital/notice')"
             >
               <el-icon><Setting /></el-icon>
               <span>预约通知</span>
             </el-menu-item>
             <el-menu-item
-              index="/hospital/notice"
-              @click="changePage('/hospital/notice')"
+              index="/hospital/close"
+              @click="changePage('/hospital/close')"
             >
               <el-icon><Warning /></el-icon>
               <span>停诊信息</span>
@@ -46,7 +46,7 @@
           </el-menu>
         </div>
       </el-col>
-      <el-col :span="4">
+      <el-col :span="20">
         <div class="grid-content ep-bg-purple">
           <router-view />
         </div>

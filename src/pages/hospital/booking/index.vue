@@ -92,7 +92,7 @@ let DeatilStore = useDeatilStore();
   }
 
   .content1 {
-    margin-top: 20px;
+    margin-top: 40px;
     display: flex;
     width: 1000px;
     .left {
