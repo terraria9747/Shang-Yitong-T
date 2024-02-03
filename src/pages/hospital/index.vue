@@ -97,6 +97,9 @@ const changePage = (path: string) => {
 onMounted(() => {
   // console.log("获取医院数据");
   detailStore.getHospital("Beijin");
+
+  // 获取部门信息
+  detailStore.getDepartment();
 });
 </script>
 

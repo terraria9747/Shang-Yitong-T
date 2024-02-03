@@ -1,5 +1,6 @@
 <template>
   <div class="booking">
+    <!-- 标题部分 -->
     <div class="top1">
       <div class="left">济宁医学院附属医院</div>
       <div class="right">
@@ -32,6 +33,8 @@
         <span>三级乙等</span>
       </div>
     </div>
+
+    <!-- 基本介绍 -->
     <div class="content1">
       <div class="left">
         <img src="@/assets/images/logo.png" alt="" />
@@ -60,16 +63,70 @@
         </ul>
       </div>
     </div>
+
+    <!-- 部门门诊 -->
+    <div class="department">
+      <div class="navleft">
+        <ul>
+          <li
+            v-for="(item, index) in DeatilStore.departmentData"
+            :key="index"
+            class="leftdepartment"
+            :class="curIndex === index ? 'active' : ''"
+            @click="changeIndex(index)"
+          >
+            <!-- @vue-expect-error -->
+            {{ item.depname }}
+          </li>
+        </ul>
+      </div>
+      <div class="navright">
+        <ul
+          v-for="(itemFirst, index) in DeatilStore.departmentData"
+          :key="index"
+        >
+          <h1 class="departmentName cur">
+            <!-- @vue-expect-error -->
+            {{ itemFirst.depname }}
+          </h1>
+          <li
+            class="departmentNamebottom"
+            v-for="(item, index) in itemFirst.children"
+            :key="index"
+          >
+            {{ item.depname }}
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import useDeatilStore from "@/store/modules/hospitalDeatil";
+// @ts-ignore
+import { ref } from "vue";
 
 let DeatilStore = useDeatilStore();
+
+// 选中的li的索引, 默认为0
+let curIndex = ref(0);
+
+const changeIndex = (index: number) => {
+  // 选中li高亮
+  curIndex.value = index;
+  console.log(index);
+
+  // 滚动条滚动到指定位置
+  let allName = document.querySelectorAll(".cur");
+  allName[curIndex.value].scrollIntoView({ behavior: "smooth" });
+};
 </script>
 
 <style scoped lang="scss">
+::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
+}
 .booking {
   margin-left: 50px;
   .top1 {
@@ -120,6 +177,61 @@ let DeatilStore = useDeatilStore();
       }
       ul li {
         margin-bottom: 8px;
+      }
+    }
+  }
+
+  .department {
+    display: flex;
+    margin-top: 40px;
+    .navleft {
+      width: 10%;
+      .leftdepartment {
+        width: 100%;
+        height: 100%;
+        font-size: 14px;
+        line-height: 40px;
+        text-align: center;
+        &.active {
+          border-left: 2px solid #7db2f5;
+          color: #7db2f5;
+        }
+      }
+      .leftdepartment:hover {
+        cursor: pointer;
+        color: #7db2f5;
+        background-color: #7db1f566;
+      }
+    }
+    .navright {
+      width: 90%;
+      padding-left: 20px;
+      height: 360px;
+      overflow: auto;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .departmentName {
+        width: 100%;
+        font-size: 20px;
+        font-weight: 600;
+        color: #7db2f5;
+        margin: 20px 0;
+        text-align: center;
+      }
+
+      .departmentNamebottom {
+        float: left;
+        font-size: 16px;
+        width: 20%;
+        line-height: 30px;
+        text-align: center;
+      }
+      .departmentNamebottom:hover {
+        background-color: #7db1f568;
+        cursor: pointer;
+        color: #7db2f5;
       }
     }
   }

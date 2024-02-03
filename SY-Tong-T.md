@@ -162,3 +162,16 @@ let detailStore = useDetailStore()
 ```
 $route.query
 ```
+
+# 十三.预约挂号部分
+- 1.配置接口
+- 2.ts限制数据类型
+- 3.在进入hospital页面发一次请求, 通过store进行管理(虚假数据)
+- 4.预约挂号静态搭建
+- 5.显示数据
+- 6.页面丝滑滚动 scrollIntoView
+```ts
+// 滚动条滚动到指定位置
+let allName = document.querySelectorAll(".cur");
+allName[curIndex.value].scrollIntoView({ behavior: "smooth" });
+```
