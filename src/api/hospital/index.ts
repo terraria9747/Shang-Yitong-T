@@ -10,7 +10,10 @@ enum API {
 	// DEPARTMENT_API = "@/Static/department/index.ts"
 
 	// 获取手机验证码
-	TELEPHONE_CODE = "/sms/send/"
+	TELEPHONE_CODE = "/sms/send/",
+
+	// 用户登录
+	USER_LOGIN = "/user/login"
 }
 
 export const reqHospitalDetail = (dictCode: string) => 
@@ -30,4 +33,9 @@ export const reqCode = (phone: string) =>
 		API.TELEPHONE_CODE + phone
 	)
 
+// 用户登录
+export const login = (data: string) => 
+	require.post<any, any>(
+		API.USER_LOGIN, data
+	)
 

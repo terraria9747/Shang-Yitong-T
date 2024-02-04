@@ -7,3 +7,16 @@ export interface ResponseData {
 	"ok": boolean
 }
 
+// 用户登录请求携带的参数
+export interface loginData  {
+	phone: string,
+	code: string,
+}
+
+// 用户登录请求响应的数据
+export interface loginResponse {
+	"code": number,
+	"data": {},
+	"message": string,
+	"ok": boolean
+}

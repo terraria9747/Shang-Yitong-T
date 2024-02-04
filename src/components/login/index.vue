@@ -29,7 +29,13 @@
               </el-form-item>
             </div>
             <div class="bottom1">
-              <el-button type="primary" style="width: 100%">用户登录</el-button>
+              <el-button
+                type="primary"
+                style="width: 100%"
+                :disabled="!isPhone || userParams.code.length < 6"
+                @click="login"
+                >用户登录</el-button
+              >
               <p @click="changeIndex" class="change">微信扫码登录</p>
               <svg
                 t="1707020573684"
@@ -121,12 +127,16 @@
 // UI图标
 // @ts-ignore
 import { User, Lock } from "@element-plus/icons-vue";
+// 提示框
+// @ts-ignore
+import { ElMessage } from "element-plus";
 
 // 倒计时组件
+// @ts-ignore
 import Count from "../count/index.vue";
 
 // @ts-ignore
-import { ref, reactive, computed } from "vue";
+import { ref, reactive, computed, toRaw } from "vue";
 
 // Pinia仓库
 import userStore from "@/store/modules/user";
@@ -171,6 +181,26 @@ const getCode = () => {
 const changeFlag = (val: boolean) => {
   console.log("修改falg");
   flag.value = val;
+};
+
+// 登录处理
+const login = () => {
+  // user.goLogin(toRaw(userParams) as any);
+  try {
+    // 登录请求
+    user.goLogin(userParams as any);
+    // 关闭对话框
+    (user.dialogVisible = false),
+      ElMessage({
+        message: "登录成功",
+        type: "success",
+      });
+  } catch {
+    ElMessage({
+      message: "登录失败, 请稍后重试",
+      type: "error",
+    });
+  }
 };
 </script>
 
