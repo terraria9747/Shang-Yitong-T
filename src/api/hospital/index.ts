@@ -8,6 +8,9 @@ enum API {
 
 	// 医院部门数据
 	// DEPARTMENT_API = "@/Static/department/index.ts"
+
+	// 获取手机验证码
+	TELEPHONE_CODE = "/sms/send/"
 }
 
 export const reqHospitalDetail = (dictCode: string) => 
@@ -20,5 +23,11 @@ export const reqHospitalDetail = (dictCode: string) =>
 // export const reqDepartment = () => {
 // 	require.get(API.DEPARTMENT_API)
 // }
+
+// 获取手机验证码
+export const reqCode = (phone: string) => 
+	require.get<any, any>(
+		API.TELEPHONE_CODE + phone
+	)
 
 

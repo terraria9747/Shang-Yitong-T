@@ -11,16 +11,20 @@
                 <el-input
                   :prefix-icon="User"
                   placeholder="请输入手机号码"
+                  v-model="userParams.phone"
                 ></el-input>
               </el-form-item>
               <el-form-item>
                 <el-input
                   :prefix-icon="Lock"
                   placeholder="请输入手机验证码"
+                  v-model="userParams.code"
                 ></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button>获取验证码</el-button>
+                <el-button :disabled="(isPhone = !isPhone)" @click="getCode"
+                  >获取验证码</el-button
+                >
               </el-form-item>
             </div>
             <div class="bottom1">
@@ -118,7 +122,7 @@
 import { User, Lock } from "@element-plus/icons-vue";
 
 // @ts-ignore
-import { ref } from "vue";
+import { ref, reactive, computed } from "vue";
 
 // Pinia仓库
 import userStore from "@/store/modules/user";
@@ -127,8 +131,32 @@ let user = userStore();
 // 控制显示手机号登录还是验证码登录
 let index = ref(0); // 0 手机号 | 1 验证码
 
+// 手机用户的手机号和验证码信息
+let userParams = reactive({
+  phone: "",
+  code: "",
+});
+
+// 控制显示手机号登录还是验证码登录
 const changeIndex = () => {
   index.value = 1;
+};
+
+// 发送验证码按钮是否禁用
+// 计算手机号是否合法
+let isPhone = computed(() => {
+  const reg =
+    /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
+  return reg.test(userParams.phone);
+});
+
+// 获取验证码
+const getCode = () => {
+  console.log("获取验证码");
+  user.getCode(userParams.phone);
+  setTimeout(() => {
+    userParams.code = user.phoneCode;
+  }, 1000);
 };
 </script>
 
