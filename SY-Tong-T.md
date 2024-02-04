@@ -175,3 +175,9 @@ $route.query
 let allName = document.querySelectorAll(".cur");
 allName[curIndex.value].scrollIntoView({ behavior: "smooth" });
 ```
+
+# 十四.登录页
+- 1.把登陆页面封装为全局组件
+- 2.把控制登录的数据进行pinia数据管理
+- 3.点击挂号与登录按钮触发
+- 4.登录页弹出框静态搭建

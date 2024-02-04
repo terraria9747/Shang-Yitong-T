@@ -93,6 +93,7 @@
             class="departmentNamebottom"
             v-for="(item, index) in itemFirst.children"
             :key="index"
+            @click="isShow(index)"
           >
             {{ item.depname }}
           </li>
@@ -106,6 +107,16 @@
 import useDeatilStore from "@/store/modules/hospitalDeatil";
 // @ts-ignore
 import { ref } from "vue";
+
+import userStore from "@/store/modules/user";
+
+let user = userStore();
+
+// 登录页面的显示与隐藏
+const isShow = (index: number) => {
+  console.log("点击了登录", index);
+  user.dialogVisible = true;
+};
 
 let DeatilStore = useDeatilStore();
 

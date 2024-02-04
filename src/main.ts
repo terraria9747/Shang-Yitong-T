@@ -7,9 +7,10 @@ import "@/style/reset.scss"
 // 导入根组件APP
 import App from './App.vue'
 
-// 引入全局组件 -- 顶部和底部
+// 引入全局组件 -- 顶部和底部 -- 登录
 import HospitalTop from "@/components/hospital_top/index.vue"
 import HospitalBottom from "@/components/hospital_bottom/index.vue"
+import Login from "@/components/login/index.vue"
 
 // 导入路由
 import router from './router'
@@ -34,6 +35,7 @@ app.use(router)
 // 全局注册组件
 app.component("HospitalTop", HospitalTop)
 app.component("HospitalBottom", HospitalBottom)
+app.component("Login", Login)
 
 // 安装element-UI插件
 app.use(ElementPlus, {
