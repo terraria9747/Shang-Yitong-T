@@ -84,7 +84,7 @@
 
 ## 4.高亮效果响应式数据 -- 点击誰, 誰高亮
 
-## 5.根据等级和地区获取响应的医院
+## 5.根据等级和地区获取响应的医院 -- 组件传值
 - 子组件点击某一等级或者某一地区时, 把对应的参数传给父组件
   - 自定义事件
   - 父组件给子组件传递一个方法, 当子组件触发该方法时, 把该数据传递给父组件
@@ -188,3 +188,45 @@ allName[curIndex.value].scrollIntoView({ behavior: "smooth" });
 - 2.收集表单信息(手机号), 计算属性验证手机号是否正确(表单验证|正则)
 - 3.如果手机号合法, 可以点击```发送验证码```按钮(否则禁用按钮), 携带手机号参数发送验证码请求
 - 4.验证码存储到pinia仓库中
+
+## 3.倒计时效果 -- 组件传值
+- 1.封装一个倒计时的组件
+- 2.点击```获取验证码```, 倒计时开始
+- 3.倒计时时, 按钮禁用
+- 4.倒计时结束时, 显示```获取验证码```, 按钮解开禁用
+
+```js
+// 组件传值
+// ------------------
+// 父组件
+<Count v-if="flag" :flag="flag" @changeFlag="changeFlag" />
+
+const changeFlag = (val: boolean) => {
+  console.log("修改falg");
+  flag.value = val;
+};
+
+------------------
+// 子组件
+let props = defineProps(["flag"]);
+let $emit = defineEmits(["changeFlag"]);
+
+// 监视flag
+watch(
+  () => props.flag,
+  () => {
+    let timer = setInterval(() => {
+      num.value--;
+      if (num.value === 0) {
+        // 如果定时器为0, 通知父元素, 显示获取验证码按钮
+        $emit("changeFlag", false);
+        // 清除定时器
+        clearInterval(timer);
+      }
+    }, 1000);
+  },
+  { immediate: true }
+);
+```
+
+## 4.

@@ -22,9 +22,10 @@
                 ></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button :disabled="(isPhone = !isPhone)" @click="getCode"
-                  >获取验证码</el-button
-                >
+                <el-button :disabled="!isPhone || flag ? true : false">
+                  <Count v-if="flag" :flag="flag" @changeFlag="changeFlag" />
+                  <span v-else @click="getCode">获取验证码</span>
+                </el-button>
               </el-form-item>
             </div>
             <div class="bottom1">
@@ -121,12 +122,18 @@
 // @ts-ignore
 import { User, Lock } from "@element-plus/icons-vue";
 
+// 倒计时组件
+import Count from "../count/index.vue";
+
 // @ts-ignore
 import { ref, reactive, computed } from "vue";
 
 // Pinia仓库
 import userStore from "@/store/modules/user";
 let user = userStore();
+
+// 判断显示 倒计时还是获取按钮
+let flag = ref(false); // false: 获取验证码 | true: 倒计时
 
 // 控制显示手机号登录还是验证码登录
 let index = ref(0); // 0 手机号 | 1 验证码
@@ -157,6 +164,13 @@ const getCode = () => {
   setTimeout(() => {
     userParams.code = user.phoneCode;
   }, 1000);
+  flag.value = true;
+};
+
+// 显示获取验证码按钮
+const changeFlag = (val: boolean) => {
+  console.log("修改falg");
+  flag.value = val;
 };
 </script>
 
