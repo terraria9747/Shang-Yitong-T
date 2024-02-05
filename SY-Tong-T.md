@@ -253,6 +253,7 @@ watch(
 - 3.路由跳转到首页
 
 # 十五.微信扫码登录
+## 1.微信登录生成二维码
 - 1.点击微信扫码按钮, 切换到微信扫码页面
 ```js
 微信开发平台官方文档
@@ -264,7 +265,8 @@ https://developers.weixin.qq.com/doc/oplatform/Website_App/WeChat_Login/Wechat_L
 http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js
 ```
 
-- 3.在需要使用微信登录的地方实例以下JS对象：
+- 3.生成登录的二维码
+- 在需要使用微信登录的地方实例以下JS对象：
 - 以下是微信服务器提供的数据,
 - 其余数据需要等请求学校后台服务器时获取
 ```js
@@ -296,6 +298,25 @@ decodeURIComponent("http%3A%2F%2Fforum.atguigu.cn%2Fapi%2FweixinPc%2Fcallback")
 encodeURIComponent() 编码
 ```
 - 5.ts限制请求的数据类型
-- 6.向后台接口发送请求, 获取微信登录的响应参数
-- 7.点击手机号登录 --> 切换为手机号登录界面
+- 6.向后台接口发送请求, 获取微信登录的响应参数, 并补充生成登录的二维码的请求参数
+- 7.生成二维码
+- 8.点击手机号登录 --> 切换为手机号登录界面
+
+## 2.扫描二维码 手机操作 确认登录 | 取消登录
+- 1.确认登录后, 
+- 扫码界面会重定向到 ```http://localhost:5173/wxlogin?``` 页面, token等信息以query的形式传递
+- 2.新建 wxlogin 组件, 并配置 wxlogin 路由
+- 3.wxlogin 通过路由获取token等用户信息
+```js
+$route.query
+访问了此路由页面, 说明微信登录授权成功, 隐藏二维码位置的界面
+document.querySelector("html")
+```
+
+- 4.watch监听场景的数据, 等待用户扫码
+- 5.如果为二维码界面, 判断本地存储是否有数据
+- (定时查询, 每隔一段时间判断是否有用户信息)
+- 6.如果有 -- 关闭对话框
+- 7.没有 -- 本地存储数据 | 关闭对话框
+
 

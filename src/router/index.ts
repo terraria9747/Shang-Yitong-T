@@ -40,6 +40,11 @@ export default createRouter({
 			]
 		},
 		{
+			// 微信扫码成功后重定向的页面
+			path: "/wxlogin",
+			component: () => import("@/pages/wxlogin/index.vue")
+		},
+		{
 			path: "/",
 			// 路由重定向
 			redirect: "/home",

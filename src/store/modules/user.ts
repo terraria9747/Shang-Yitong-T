@@ -42,6 +42,20 @@ const userStore = defineStore("user", {
 			this.userinfo = {}
 			// 清除本地存储数据
 			REMOVE_TOKEN()
+		},
+
+		// 判断用户信息是否存储到了仓库中
+		checkQuery() {
+			let timer = setInterval(() => {
+				// console.log("你扫码了吗");
+				// 如果扫码确认登录了
+				if (GET_TOKEN()) {
+					// 关闭对话框
+					this.dialogVisible = false;
+					this.userinfo = JSON.parse(GET_TOKEN() as string)
+					clearInterval(timer)
+				}
+			}, 1000);
 		}
 	},
 

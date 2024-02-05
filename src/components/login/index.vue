@@ -160,13 +160,14 @@ import { ElMessage } from "element-plus";
 import Count from "../count/index.vue";
 
 // @ts-ignore
-import { ref, reactive, computed, toRaw } from "vue";
+import { ref, reactive, computed, toRaw, watch } from "vue";
 
 // 微信登录
 import { weiXinLogin } from "@/api/hospital/index";
 
 // Pinia仓库
 import userStore from "@/store/modules/user";
+import { GET_TOKEN } from "@/utils/user/index";
 let user = userStore();
 
 // 判断显示 倒计时还是获取按钮
@@ -186,12 +187,12 @@ const changeIndex = async () => {
   index.value = 1;
 
   // 重定向的页面
-  // let redirect_URL = encodeURIComponent(window.location.origin + "/wxlogin");
-  let redirect_URL = encodeURIComponent(window.location.origin);
+  let redirect_URL = encodeURIComponent(window.location.origin + "/wxlogin");
+  // let redirect_URL = encodeURIComponent(window.location.origin);
   // console.log(redirect_URL);
 
   let { data } = await weiXinLogin(redirect_URL);
-  console.log(data);
+  // console.log(data);
 
   // 微信二维码登录相关配置数据
   // @ts-ignore
@@ -299,6 +300,17 @@ const rules = {
 //   // 清除表单验证规则
 //   form.value.resetFields();
 // };
+
+// 判断用户是否进行了扫码
+watch(
+  () => index.value,
+  (value: number) => {
+    if (value === 1) {
+      // console.log("等待扫码...");
+      user.checkQuery();
+    }
+  }
+);
 </script>
 
 <script lang="ts">
