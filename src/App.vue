@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- 顶部区域 -->
-    <HospitalTop @click="goHome" />
+    <HospitalTop />
     <!-- 路由区域 -->
     <div class="content">
       <router-view></router-view>
@@ -14,20 +14,9 @@
 </template>
 
 <script setup lang="ts" name="app">
-// @ts-ignore
-import { useRouter } from "vue-router";
-
 // 方法二: 关闭对话框, 销毁pinia数据
 import userStore from "@/store/modules/user";
 const user = userStore();
-
-// 创建路由器
-const $router = useRouter();
-
-// 返回首页
-const goHome = () => {
-  $router.push("/home");
-};
 </script>
 
 <style lang="scss">
