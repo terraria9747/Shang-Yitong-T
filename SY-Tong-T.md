@@ -252,3 +252,50 @@ watch(
 - 2.清空pinia中的用户数据, 清空本地存储中的用户数据
 - 3.路由跳转到首页
 
+# 十五.微信扫码登录
+- 1.点击微信扫码按钮, 切换到微信扫码页面
+```js
+微信开发平台官方文档
+https://developers.weixin.qq.com/doc/oplatform/Website_App/WeChat_Login/Wechat_Login.html
+```
+
+- 2.主结构页面引入微信二维码插件文件
+```js
+http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js
+```
+
+- 3.在需要使用微信登录的地方实例以下JS对象：
+- 以下是微信服务器提供的数据,
+- 其余数据需要等请求学校后台服务器时获取
+```js
+var obj = new WxLogin({
+self_redirect:true,  // 手机点击确认登录后可以在 iframe 内跳转到 redirect_url
+id:"login_container",  // 内嵌容器
+appid: "",  // 应用位置标识appid
+scope: "snsapi_login",  // 当前微信扫码登录页面已经授权了
+redirect_uri: "",  // 填写授权回调域路径, 用户授权成功后, 微信服务器向公司后台推送code地址
+state: "",  // 学校服务器重定向的地址携带用户信息
+style: "black",  // 背景颜色
+href: ""  // 背景css
+});
+```
+
+- 4.封装接口
+  - - 微信服务器登录成功之后携带参数 -- 重定向到本地地址(http://localhost:5173...)
+  - - decodeURIComponent()
+
+```js
+// 解码统一资源标识符(URI)
+decodeURIComponent(encodedURI)
+
+// 例子:
+decodeURIComponent("http%3A%2F%2Fforum.atguigu.cn%2Fapi%2FweixinPc%2Fcallback")
+// --> 输出:
+'http://forum.atguigu.cn/api/weixinPc/callback'
+
+encodeURIComponent() 编码
+```
+- 5.ts限制请求的数据类型
+- 6.向后台接口发送请求, 获取微信登录的响应参数
+- 7.点击手机号登录 --> 切换为手机号登录界面
+

@@ -20,3 +20,16 @@ export interface loginResponse {
 	"message": string,
 	"ok": boolean
 }
+
+// 微信登录类型限制
+export interface Weixinlogin {
+	"redirect_uri": string,
+	"appid": string,
+	"state": string,
+	"scope": string,
+}
+
+export interface WXLoginResponse extends ResponseData {
+	data: Weixinlogin
+}
+

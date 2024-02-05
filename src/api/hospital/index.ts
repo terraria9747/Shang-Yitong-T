@@ -1,6 +1,9 @@
 // 统一处理医院详情API
 import require from "@/utils/require"
 
+// @ts-ignore
+import { Weixinlogin, WXLoginResponse } from "@/api/hospital/types.ts"
+
 enum API {
 	// 医院详情数据
 	// 测试接口, 后续替换
@@ -13,7 +16,10 @@ enum API {
 	TELEPHONE_CODE = "/sms/send/",
 
 	// 用户登录
-	USER_LOGIN = "/user/login"
+	USER_LOGIN = "/user/login",
+
+	// 微信扫码登录
+	WEICHAT_LOGIN = "/user/weixin/getLoginParam/"
 }
 
 export const reqHospitalDetail = (dictCode: string) => 
@@ -37,5 +43,11 @@ export const reqCode = (phone: string) =>
 export const login = (data: string) => 
 	require.post<any, any>(
 		API.USER_LOGIN, data
+	)
+
+// 微信扫码登录
+export const weiXinLogin = (wxRedirectUri: Weixinlogin) => 
+	require.get<any, WXLoginResponse>(
+		API.WEICHAT_LOGIN + `?wxRedirectUri=${wxRedirectUri}`
 	)
 

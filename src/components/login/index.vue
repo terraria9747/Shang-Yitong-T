@@ -61,7 +61,28 @@
           </div>
 
           <!-- 验证码登录 -->
-          <div class="left-content" v-show="index === 1">验证码登录</div>
+          <div class="left-content" v-show="index === 1">
+            <!-- 显示微信扫码登录的界面 -->
+            <div id="login_container"></div>
+            <p @click="changeIndex2">手机号登录</p>
+            <svg
+              t="1707136422387"
+              class="icon"
+              viewBox="0 0 1024 1024"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              p-id="4304"
+              width="32"
+              height="32"
+              @click="changeIndex2"
+            >
+              <path
+                d="M820.409449 797.228346q0 25.19685-10.07874 46.866142t-27.716535 38.299213-41.322835 26.204724-50.897638 9.574803l-357.795276 0q-27.212598 0-50.897638-9.574803t-41.322835-26.204724-27.716535-38.299213-10.07874-46.866142l0-675.275591q0-25.19685 10.07874-47.370079t27.716535-38.80315 41.322835-26.204724 50.897638-9.574803l357.795276 0q27.212598 0 50.897638 9.574803t41.322835 26.204724 27.716535 38.80315 10.07874 47.370079l0 675.275591zM738.771654 170.330709l-455.559055 0 0 577.511811 455.559055 0 0-577.511811zM510.992126 776.062992q-21.165354 0-36.787402 15.11811t-15.622047 37.291339q0 21.165354 15.622047 36.787402t36.787402 15.622047q22.173228 0 37.291339-15.622047t15.11811-36.787402q0-22.173228-15.11811-37.291339t-37.291339-15.11811zM591.622047 84.661417q0-8.062992-5.03937-12.598425t-11.086614-4.535433l-128 0q-5.03937 0-10.582677 4.535433t-5.543307 12.598425 5.03937 12.598425 11.086614 4.535433l128 0q6.047244 0 11.086614-4.535433t5.03937-12.598425z"
+                p-id="4305"
+                fill="#1afa29"
+              ></path>
+            </svg>
+          </div>
         </el-col>
 
         <!-- 右侧扫码 -->
@@ -141,6 +162,9 @@ import Count from "../count/index.vue";
 // @ts-ignore
 import { ref, reactive, computed, toRaw } from "vue";
 
+// 微信登录
+import { weiXinLogin } from "@/api/hospital/index";
+
 // Pinia仓库
 import userStore from "@/store/modules/user";
 let user = userStore();
@@ -158,8 +182,34 @@ let userParams = reactive({
 });
 
 // 控制显示手机号登录还是验证码登录
-const changeIndex = () => {
+const changeIndex = async () => {
   index.value = 1;
+
+  // 重定向的页面
+  // let redirect_URL = encodeURIComponent(window.location.origin + "/wxlogin");
+  let redirect_URL = encodeURIComponent(window.location.origin);
+  // console.log(redirect_URL);
+
+  let { data } = await weiXinLogin(redirect_URL);
+  console.log(data);
+
+  // 微信二维码登录相关配置数据
+  // @ts-ignore
+  new WxLogin({
+    self_redirect: true, // iframe 内跳转到 redirect_ur
+    id: "login_container", // 内嵌的容器
+    appid: data.appid, // 应用位置标识appid
+    scope: data.scope, // 当前微信扫码登录页面已经授权
+    redirect_uri: data.redirectUri, // 填写授权回调域路径, 用户授权成功
+    state: data.state, // 学校服务器重定向的地址携带用户信息
+    style: "black", // 背景颜色
+    href: "", // 背景css
+  });
+};
+
+// 切换到手机号登录
+const changeIndex2 = () => {
+  index.value = 0;
 };
 
 // 发送验证码按钮是否禁用
@@ -270,6 +320,17 @@ export default {
     .left-content {
       padding: 20px;
       border: 1px solid #ccc;
+      text-align: center;
+    }
+    p {
+      margin: 0 0 10px 0;
+      font-size: 16px;
+    }
+    p:hover {
+      cursor: pointer;
+    }
+    svg:hover {
+      cursor: pointer;
     }
   }
   .bottom1 {
