@@ -1,38 +1,41 @@
 <template>
   <div class="login-contianer">
     <el-dialog v-model="user.dialogVisible" title="用户登录" width="800">
+      <!-- @close="close" ↑ -->
       <el-row>
         <!-- 左侧登录 -->
         <el-col :span="12" class="left">
           <!-- 手机号登录 -->
           <div class="left-content" v-show="index === 0">
             <div class="form">
-              <el-form-item>
-                <el-input
-                  :prefix-icon="User"
-                  placeholder="请输入手机号码"
-                  v-model="userParams.phone"
-                ></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-input
-                  :prefix-icon="Lock"
-                  placeholder="请输入手机验证码"
-                  v-model="userParams.code"
-                ></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-button :disabled="!isPhone || flag ? true : false">
-                  <Count v-if="flag" :flag="flag" @changeFlag="changeFlag" />
-                  <span v-else @click="getCode">获取验证码</span>
-                </el-button>
-              </el-form-item>
+              <el-form :model="userParams" :rules="rules" ref="form">
+                <el-form-item prop="phone">
+                  <el-input
+                    :prefix-icon="User"
+                    placeholder="请输入手机号码"
+                    v-model="userParams.phone"
+                  ></el-input>
+                </el-form-item>
+                <el-form-item prop="code">
+                  <el-input
+                    :prefix-icon="Lock"
+                    placeholder="请输入手机验证码"
+                    v-model="userParams.code"
+                  ></el-input>
+                </el-form-item>
+                <el-form-item>
+                  <el-button :disabled="!isPhone || flag ? true : false">
+                    <Count v-if="flag" :flag="flag" @changeFlag="changeFlag" />
+                    <span v-else @click="getCode">获取验证码</span>
+                  </el-button>
+                </el-form-item>
+              </el-form>
             </div>
             <div class="bottom1">
               <el-button
                 type="primary"
                 style="width: 100%"
-                :disabled="!isPhone || userParams.code.length < 6"
+                :disabled="!isPhone || userParams.code.length !== 6"
                 @click="login"
                 >用户登录</el-button
               >
@@ -167,8 +170,13 @@ let isPhone = computed(() => {
   return reg.test(userParams.phone);
 });
 
+// 获取form实例对象
+let form = ref<any>();
+
 // 获取验证码
 const getCode = () => {
+  // 如果不是手机号 或者 开启了定时器 -- 后续语句不再执行
+  if (!isPhone.value || flag.value) return;
   console.log("获取验证码");
   user.getCode(userParams.phone);
   setTimeout(() => {
@@ -186,6 +194,10 @@ const changeFlag = (val: boolean) => {
 // 登录处理
 const login = () => {
   // user.goLogin(toRaw(userParams) as any);
+
+  // 如果手机号和验证码同时合法, 才发请求
+  form.value.validate();
+
   try {
     // 登录请求
     user.goLogin(userParams as any);
@@ -202,6 +214,41 @@ const login = () => {
     });
   }
 };
+
+// @ts-ignore
+const validatePhone = (rule: any, value: any, callback: any) => {
+  const reg =
+    /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
+  if (reg.test(value)) {
+    callback();
+  } else {
+    callback(new Error("请输入正确的手机号"));
+  }
+};
+
+// @ts-ignore
+const validateCode = (rule: any, value: any, callback: any) => {
+  const reg = /^\d{6}$/;
+  if (reg.test(value)) {
+    callback();
+  } else {
+    callback(new Error("请输入6位验证码"));
+  }
+};
+
+// 表单验证规则
+const rules = {
+  phone: [{ validator: validatePhone, trigger: "change" }],
+  code: [{ validator: validateCode, trigger: "change" }],
+};
+
+// 清除表单数据和验证规则 -- 方法一
+// const close = () => {
+//   // 清除数据
+//   Object.assign(userParams, { phone: "", code: "" });
+//   // 清除表单验证规则
+//   form.value.resetFields();
+// };
 </script>
 
 <script lang="ts">
