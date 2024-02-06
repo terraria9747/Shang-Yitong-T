@@ -2,6 +2,9 @@
 import axios from "axios"
 import { ElMessage } from 'element-plus'
 
+// 导入存储token的仓库
+import  userStore  from "@/store/modules/user"
+
 // 利用create方法创建axios实例
 const request = axios.create({
 	baseURL: "/api",
@@ -12,6 +15,17 @@ const request = axios.create({
 request.interceptors.request.use((config) => {
 	// console.log("请求拦截器", config);
 	// 这里可以配置请求参数, 请求头, token等信息
+
+	// 配置token信息, 有些页面只有携带token才能访问(登录后才能访问)
+	let user = userStore()
+	if (user.userinfo.token) {
+		// 请求头携带token信息
+		config.headers.token = user.userinfo.token
+		console.log("登录了");
+	} else {
+		console.log("没有登录");
+	}
+
 	return config
 })
 

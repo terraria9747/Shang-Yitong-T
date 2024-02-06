@@ -2,12 +2,14 @@ import { defineStore } from "pinia"
 // 导入请求医院详情的接口
 import { reqHospitalDetail } from "@/api/hospital/index.ts"
 import department from "@/Static/department/index.ts"
+import workdate from "@/static/workate/index.ts";
 
 const useDeatilStore = defineStore("Detail", {
 	state() {
 			return {
 				hospitalData: [],
 				departmentData: {},
+				workdate: <any>{},
 			}
 	},
 	actions: {
@@ -20,6 +22,11 @@ const useDeatilStore = defineStore("Detail", {
 		getDepartment() {
 			// 模拟数据, 这里需要发请求获取数据
 			this.departmentData = department.data
+		},
+		// 获取医院挂号信息
+		getWork() {
+			// 模拟数据, 这里需要发请求获取数据
+			this.workdate = workdate.data
 		}
 	},
 	getters: {},

@@ -1,3 +1,4 @@
+// 模拟医院部门数据
 // nanoid模拟请求参数
 //@ts-ignore
 import { nanoid } from "nanoid/non-secure";

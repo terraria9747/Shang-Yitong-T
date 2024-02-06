@@ -19,7 +19,11 @@ enum API {
 	USER_LOGIN = "/user/login",
 
 	// 微信扫码登录
-	WEICHAT_LOGIN = "/user/weixin/getLoginParam/"
+	WEICHAT_LOGIN = "/user/weixin/getLoginParam/",
+
+	// 获取可预约的排班数据
+	// 测试接口, 后续替换
+	WORKDATE = "..."
 }
 
 export const reqHospitalDetail = (dictCode: string) => 
@@ -51,3 +55,10 @@ export const weiXinLogin = (wxRedirectUri: Weixinlogin) =>
 		API.WEICHAT_LOGIN + `?wxRedirectUri=${wxRedirectUri}`
 	)
 
+// 获取可预约的排班数据
+// 测试接口, 后续替换
+// WORKDATE = "..."
+export const workDate = () => 
+	require.get<any, any>(
+		API.WORKDATE + `...`
+	)
