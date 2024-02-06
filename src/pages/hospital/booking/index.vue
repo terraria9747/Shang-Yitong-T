@@ -108,14 +108,28 @@ import useDeatilStore from "@/store/modules/hospitalDeatil";
 // @ts-ignore
 import { ref } from "vue";
 
-import userStore from "@/store/modules/user";
+// 后期路由鉴权
+// import userStore from "@/store/modules/user";
+// let user = userStore();
 
-let user = userStore();
+// @ts-ignore
+import { useRoute, useRouter } from "vue-router";
+// 导入路由器
+let $router = useRouter();
+// 导入路由对象
+let $route = useRoute();
 
 // 登录页面的显示与隐藏
 const isShow = (index: number) => {
   console.log("点击了登录", index);
-  user.dialogVisible = true;
+  // 后期路由鉴权
+  // user.dialogVisible = true;
+
+  // 路由跳转
+  $router.push({
+    path: "/hospital/register_step1",
+    query: $route.query,
+  });
 };
 
 let DeatilStore = useDeatilStore();

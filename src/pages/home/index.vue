@@ -180,7 +180,13 @@ const getRegionData = (value: string) => {
 // 路由跳转 -- 跳转到详情页
 const goDetail = () => {
   // nanoid模拟请求参数
-  $router.push({ path: "/hospital/booking", query: { id: nanoid() } });
+  $router.push({
+    path: "/hospital/booking",
+    query: {
+      hoscode: nanoid().slice(0, 5),
+      depcode: nanoid().slice(0, 5),
+    },
+  });
 };
 </script>
 

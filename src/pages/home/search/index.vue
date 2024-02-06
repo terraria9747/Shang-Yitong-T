@@ -57,7 +57,13 @@ const querySearch = async (keyword: string, cb: any) => {
 // 去详情页
 const goDetail = () => {
   // 跳转时携带参数 -- nanoid模拟请求参数
-  $router.push({ path: "/hospital/booking/", query: { id: nanoid() } });
+  $router.push({
+    path: "/hospital/booking/",
+    query: {
+      hoscode: nanoid().slice(0, 5),
+      depcode: nanoid().slice(0, 5),
+    },
+  });
 };
 </script>
 

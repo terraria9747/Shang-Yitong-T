@@ -319,4 +319,28 @@ document.querySelector("html")
 - 6.如果有 -- 关闭对话框
 - 7.没有 -- 本地存储数据 | 关闭对话框
 
+# 十六.医院科室挂号业务
+- 1.未登录情况下, 点击医院科室, 弹出登录框
+- 后期通过路由鉴权(携带token才能访问, 否则不能访问)
+- 2.点击医院科室, 路由跳转到预约挂号详情页面
+- 路由跳转+参数
+- 3.新建路由组件(register_step1) 并配置路由信息(二级路由)
+- 4.预约挂号详情页面静态搭建
 
+```js
+// 路由跳转补充
+import { useRoute, useRouter } from "vue-router";
+// 导入路由器
+let $router = useRouter();
+// 导入路由对象
+let $route = useRoute();
+
+const isShow = (index: number) => {
+  // 路由跳转
+  $router.push({
+    path: "/hospital/register_step1",
+    // 路由对象参数信息
+    query: $route.query,
+  });
+};
+```
