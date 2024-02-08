@@ -355,3 +355,11 @@ const isShow = (index: number) => {
 config.headers.token = token信息
 ```
 - 4.数据渲染到页面
+
+# 3.号源
+- 1.无号|约满了 -- 只显示上午号源和下午号源结构
+![wuhao](img/01.无号.png)
+- 2.有号 -- 显示上午号源和下午号源结构及数据
+![youhao](img/02.有号.png)
+- 3.即将放号 -- 显示放号时间
+![jijiang](img/03.即将放号.png)
